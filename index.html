@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مغامرة النواسخ | تعلم العربية بمتعة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- مكتبة A-Frame للألعاب ثلاثية الأبعاد والـ VR -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <!-- مكتبة البيئات الجاهزة لـ A-Frame -->
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+    <!-- مكتبة الرسوم البيانية -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+    <div id="game-container">
+        <!-- الهيدر -->
+        <header>
+            <div class="header-content">
+                <div class="player-badge" id="player-badge">
+                    <span id="header-avatar">🎯</span>
+                    <span id="header-name">اللاعب</span>
+                </div>
+                <div class="header-titles">
+                    <h1>مغامرة النواسخ 3D</h1>
+                    <div class="designer-name-header">إعداد فاطمة حسن زكي حسن</div>
+                </div>
+                <div class="header-right">
+                    <div class="stat-chip">🪙 <span id="coins-display">0</span></div>
+                    <div class="stat-chip">🏅 <span id="score">0</span></div>
+                    <div class="stat-chip">❌ <span id="errors">0</span></div>
+                    <div class="stat-chip timer-chip">⏱ <span id="timer">00:00</span></div>
+                    <div class="stat-chip">📚 <span id="level">1</span></div>
+                    <!-- زر الخروج من اللعبة -->
+                    <button class="exit-btn" id="in-game-exit-btn" title="خروج">🚪</button>
+                </div>
+            </div>
+            <div class="progress-bar-wrap">
+                <div id="progress-bar"></div>
+                <span id="progress-text">1 / 7</span>
+            </div>
+        </header>
+
+        <!-- المحتوى اللعبي -->
+    <main>
+        <div id="hint-box">
+            <p id="instruction">مرحباً!</p>
+        </div>
+
+        <!-- 1. النمط العادي (2D Puzzle) -->
+        <div id="standard-game-zone" class="hidden">
+            <div id="puzzle-container">
+                <div id="slots-container" class="slots-row"></div>
+                <div id="pieces-container" class="pieces-row"></div>
+            </div>
+        </div>
+
+        <!-- 2. نمط الواقع الافتراضي (3D Scene) -->
+        <div id="three-container" class="hidden">
+                <a-scene embedded vr-mode-ui="enabled: true" cursor="rayOrigin: mouse">
+                    <!-- بيئة الغابة السحرية المتحركة -->
+                    <a-entity
+                        environment="preset: forest; dressingAmount: 50; skyType: gradient; groundTexture: walkey; active: true; lighting: point; shadow: true"></a-entity>
+
+                    <!-- إطارات الزينة المحيطة بالمكان -->
+                    <a-entity id="particles-success" position="0 2 -3"
+                        particle-system="color: #FFD700; size: 0.5; velocityValue: 0 2 0; opacity: 0"
+                        visible="false"></a-entity>
+
+                    <!-- الكاميرا والتحكم باليدين VR -->
+                    <a-entity id="rig" position="0 1.5 5">
+                        <a-camera id="camera" look-controls="enabled: true" wasd-controls-enabled="false">
+                            <a-cursor color="#1A237E" scale="1.5 1.5 1.5"></a-cursor>
+                        </a-camera>
+                        <!-- اليد اليمنى واليسرى -->
+                        <a-entity id="leftHand" laser-controls="hand: left"
+                            raycaster="objects: .clickable-piece; far: 5"></a-entity>
+                        <a-entity id="rightHand" laser-controls="hand: right"
+                            raycaster="objects: .clickable-piece; far: 5"></a-entity>
+                    </a-entity>
+
+                    <!-- منصة الكلمات (التي ستظهر فيها القطع) -->
+                    <a-entity id="puzzle-world" position="0 0 0">
+                        <!-- سيتم إضافة الفتحات والقطع برمجياً هنا -->
+                    </a-entity>
+
+                    <!-- إضاءة ناعمة غير باهتة -->
+                    <a-light type="spot" color="#FFF" intensity="0.4" position="0 4 2" target="#puzzle-world"></a-light>
+                </a-scene>
+            </div>
+        </main>
+
+        <!-- التغذية الراجعة -->
+        <div id="feedback" class="hidden">
+            <div class="feedback-content">
+                <div>
+                    <div id="feedback-title">ممتاز!</div>
+                    <div id="feedback-message">الجملة صحيحة.</div>
+                </div>
+                <button id="next-btn" class="btn-primary">التالي ←</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     شاشة اختيار نمط اللعب 🎮
+     ═══════════════════════════════════════════ -->
+    <div id="mode-selection-screen" class="overlay hidden">
+        <div class="overlay-content mode-content">
+            <!-- بروفايل اللاعب في الواجهة الأساسية -->
+            <div class="main-profile-card">
+                <div class="main-avatar" id="mode-avatar-display">🎯</div>
+                <div class="main-user-info">
+                    <span class="welcome-msg">مرحباً بك يا بطل!</span>
+                    <h3 id="mode-name-display">اللاعب</h3>
+                </div>
+            </div>
+
+            <div class="hero-icon">🎮</div>
+            <h2>اختر تجربة اللعب</h2>
+            <p>كيف تود خوض المغامرة اليوم؟</p>
+            
+            <div class="mode-options">
+                <div class="mode-card" id="mode-standard">
+                    <div class="mode-icon">📱</div>
+                    <h3>النمط الكلاسيكي</h3>
+                    <p>ألوان زاهية، واجهة جذابة، وسهولة في التحكم (2D)</p>
+                    <span class="mode-badge">موصى به للهواتف</span>
+                </div>
+                
+                <div class="mode-card" id="mode-vr">
+                    <div class="mode-icon">🥽</div>
+                    <h3>نمط الواقع الافتراضي</h3>
+                    <p>انغماس كامل في غابة سحرية ثلاثية الأبعاد (VR)</p>
+                    <span class="mode-badge">يحتاج نظارة VR</span>
+                </div>
+            </div>
+            
+            <button id="back-to-reg-btn" class="btn-secondary">← رجوع لتغيير الاسم</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     شاشة التسجيل
+     ═══════════════════════════════════════════ -->
+    <div id="register-screen" class="overlay">
+        <div class="overlay-content register-content">
+            <div class="hero-icon">📚</div>
+            <h2>مغامرة النواسخ</h2>
+            <div class="designer-credit">مصممة اللعبة التعليمية: فاطمة حسن زكي حسن</div>
+            <p>تعلّم قواعد اللغة العربية خطوة بخطوة</p>
+            <div class="form-group">
+                <label for="player-name-input">✏️ أدخل اسمك:</label>
+                <input type="text" id="player-name-input" placeholder="مثال: أحمد" maxlength="20" autocomplete="off">
+            </div>
+            <div class="avatar-section">
+                <p class="avatar-label">🎨 اختر أفاتارك:</p>
+                <div class="avatar-grid" id="avatar-grid"></div>
+            </div>
+            <div id="returning-player" class="returning-box hidden"></div>
+            <div class="register-btns">
+                <button id="start-btn" class="btn-primary">ابدأ اللعب 🚀</button>
+                <div class="secondary-btns-row">
+                    <button id="show-leaderboard-btn" class="btn-secondary">🏆 الأوائل</button>
+                    <button id="show-teacher-btn" class="btn-teacher">👨‍🏫 لوحة المعلم</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     شاشة تقديم المستوى 🎬
+     ═══════════════════════════════════════════ -->
+    <div id="level-intro-screen" class="overlay hidden">
+        <div class="overlay-content intro-content">
+            <div class="level-player-preview">
+                <span id="intro-avatar-display">🎯</span>
+                <span id="intro-name-display">اللاعب</span>
+            </div>
+            <div id="intro-icon" class="hero-icon">🏰</div>
+            <h2 id="intro-title">المستوى الأول</h2>
+            <h3 id="intro-subtitle">تحدي المبتدأ والخبر</h3>
+
+            <div class="intro-message-box">
+                <p id="intro-motivation"></p>
+            </div>
+
+            <div class="intro-task-box">
+                <strong>🎯 المطلوب منك:</strong>
+                <p id="intro-task"></p>
+            </div>
+
+            <div class="intro-rule-box">
+                <strong>⭐ القاعدة الذهبية:</strong>
+                <p id="intro-rule"></p>
+            </div>
+
+            <button id="start-level-btn" class="btn-primary">ابدأ التحدي 🚀</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     شاشة إكمال المستوى ✨
+     ═══════════════════════════════════════════ -->
+    <div id="level-complete-screen" class="overlay hidden">
+        <div class="overlay-content level-complete-content">
+            <div id="lc-emoji" class="lc-emoji">🏆</div>
+            <h2 id="lc-title">أكملت المستوى!</h2>
+            <p id="lc-subtitle">رائع جداً!</p>
+
+            <!-- رسالة التشجيع -->
+            <div id="lc-motivation" class="motivation-box"></div>
+
+            <!-- إحصاءات المستوى -->
+            <div class="lc-stats">
+                <div class="lc-stat">
+                    <span class="lc-stat-icon">📚</span>
+                    <span class="lc-stat-label">المستوى المُكتمَل</span>
+                    <span class="lc-stat-val" id="lc-level">1</span>
+                </div>
+                <div class="lc-stat">
+                    <span class="lc-stat-icon">🏅</span>
+                    <span class="lc-stat-label">النقاط حتى الآن</span>
+                    <span class="lc-stat-val" id="lc-score">0</span>
+                </div>
+                <div class="lc-stat">
+                    <span class="lc-stat-icon">❌</span>
+                    <span class="lc-stat-label">الأخطاء</span>
+                    <span class="lc-stat-val" id="lc-errors">0</span>
+                </div>
+                <div class="lc-stat">
+                    <span class="lc-stat-icon">⏱</span>
+                    <span class="lc-stat-label">الوقت المنقضي</span>
+                    <span class="lc-stat-val" id="lc-time">00:00</span>
+                </div>
+            </div>
+
+            <!-- المستوى التالي (معاينة) -->
+            <div id="next-level-preview" class="next-level-preview hidden">
+                <span id="nlp-icon">🔵</span>
+                <span id="nlp-text">المستوى القادم: ...</span>
+            </div>
+
+            <div class="lc-btns">
+                <button id="continue-btn" class="btn-primary">إكمال اللعبة ←</button>
+                <button id="lc-exit-btn" class="btn-exit">🚪 خروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     تحذير الخروج
+     ═══════════════════════════════════════════ -->
+    <div id="exit-warning-screen" class="overlay hidden">
+        <div class="overlay-content warning-content">
+            <div class="hero-icon">⚠️</div>
+            <h2>تحذير: ستفقد تقدمك!</h2>
+            <p id="exit-warning-msg">إذا خرجت الآن ستفقد تقدمك في المستوى الحالي ولن تُحفظ نقاطك.</p>
+            <div class="warning-btns">
+                <button id="confirm-exit-btn" class="btn-danger">نعم، أخرج 🚪</button>
+                <button id="cancel-exit-btn" class="btn-primary">لا، أكمل اللعبة 🎮</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     لوحة تحكم المعلم 👨‍🏫
+     ═══════════════════════════════════════════ -->
+    <div id="teacher-dashboard-screen" class="overlay hidden">
+        <div class="overlay-content teacher-content">
+            <div class="dashboard-header">
+                <h2>👨‍🏫 لوحة تحكم المعلم - فاطمة حسن زكي حسن</h2>
+                <p>تحليلات تعلم الطلاب وأدائهم الشامل</p>
+            </div>
+
+            <div class="analytics-summary">
+                <div class="summary-card">
+                    <span class="card-val" id="total-students-count">0</span>
+                    <span class="card-label">إجمالي الطلاب</span>
+                </div>
+                <div class="summary-card">
+                    <span class="card-val" id="avg-score-val">0</span>
+                    <span class="card-label">متوسط النقاط</span>
+                </div>
+                <div class="summary-card">
+                    <span class="card-val" id="avg-errors-val">0</span>
+                    <span class="card-label">متوسط الأخطاء</span>
+                </div>
+            </div>
+
+            <div class="analytics-charts">
+                <div class="chart-card">
+                    <h3>📈 منحنى تطور أداء الفصل (متوسط النقاط)</h3>
+                    <canvas id="performance-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="dashboard-table-wrap">
+
+                <table id="students-table">
+                    <thead>
+                        <tr>
+                            <th>الطالب</th>
+                            <th>المستوى</th>
+                            <th>النقاط</th>
+                            <th>الأخطاء</th>
+                            <th>الوقت</th>
+                            <th>العملات</th>
+                            <th>التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-list-body">
+                        <!-- سيتم ملؤه برمجياً -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="overlay-footer-btns">
+                <button id="close-teacher-btn" class="btn-secondary">← رجوع</button>
+                <button id="clear-data-btn" class="btn-danger">🗑 مسح جميع البيانات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     قائمة الإنجاز
+     ═══════════════════════════════════════════ -->
+    <div id="leaderboard-screen" class="overlay hidden">
+        <div class="overlay-content leaderboard-content">
+            <h2>🏆 قائمة الأوائل</h2>
+            <p class="lb-subtitle">ترتيب: أقل أخطاء → أسرع وقت → أعلى نقاط</p>
+            <div id="leaderboard-list"></div>
+            <div class="overlay-footer-btns">
+                <button id="close-leaderboard-btn" class="btn-secondary">← رجوع</button>
+                <button id="lb-exit-btn" class="btn-exit">🚪 خروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+     شاشة النهاية
+     ═══════════════════════════════════════════ -->
+    <div id="end-screen" class="overlay hidden">
+        <div class="overlay-content end-content">
+            <div id="end-avatar" class="end-avatar">🎯</div>
+            <h2 id="end-name">أحسنت!</h2>
+            <div id="star-rating" class="star-rating"></div>
+            <div class="end-stats">
+                <div class="end-stat-item">
+                    <span class="est-icon">🏅</span>
+                    <span class="est-label">النقاط</span>
+                    <span class="est-val" id="final-score">0</span>
+                </div>
+                <div class="end-stat-item">
+                    <span class="est-icon">🪙</span>
+                    <span class="est-label">العملات</span>
+                    <span class="est-val" id="final-coins">0</span>
+                </div>
+                <div class="end-stat-item">
+                    <span class="est-icon">❌</span>
+                    <span class="est-label">الأخطاء</span>
+                    <span class="est-val" id="final-errors">0</span>
+                </div>
+                <div class="end-stat-item">
+                    <span class="est-icon">⏱</span>
+                    <span class="est-label">الوقت</span>
+                    <span class="est-val" id="final-time">00:00</span>
+                </div>
+                <div class="end-stat-item rank-item">
+                    <span class="est-icon">🥇</span>
+                    <span class="est-label">ترتيبك</span>
+                    <span class="est-val" id="final-rank">#1</span>
+                </div>
+                <div class="end-stat-item coins-total-item">
+                    <span class="est-icon">💰</span>
+                    <span class="est-label">مجموع عملاتك</span>
+                    <span class="est-val" id="total-coins">0</span>
+                </div>
+            </div>
+            <div id="new-badges-section" class="hidden">
+                <p class="badges-section-title">🎉 شارات جديدة اكتسبتها!</p>
+                <div id="new-badges-list" class="badges-grid"></div>
+            </div>
+            <div id="all-badges-section">
+                <p class="badges-section-title">🗂 مجموعتك من الشارات</p>
+                <div id="all-badges-list" class="badges-grid"></div>
+            </div>
+            <div class="end-btns">
+                <button id="restart-btn" class="btn-primary">🔄 العب مجدداً</button>
+                <button id="end-leaderboard-btn" class="btn-secondary">🏆 قائمة الإنجاز</button>
+                <button id="end-exit-btn" class="btn-exit">🚪 خروج</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
