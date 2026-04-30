@@ -494,9 +494,11 @@ a-scene {
 /* ── feedback ── */
 #feedback {
     position:fixed; top:32px; left:50%; transform:translateX(-50%);
-    width:92%; max-width:600px; background:#fff; border-radius:20px;
-    padding:18px 28px; box-shadow:0 12px 40px rgba(0,0,0,0.15);
-    z-index:150; border-right:6px solid var(--success);
+    width:92%; max-width:600px; background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(10px);
+    border-radius:20px;
+    padding:18px 28px; box-shadow:0 12px 40px rgba(0,0,0,0.3);
+    z-index:999999; border-right:6px solid var(--success);
 }
 .feedback-content { display:flex; justify-content:space-between; align-items:center; gap:14px; }
 #feedback-title   { font-size:22px; font-weight:800; color:var(--success); }
@@ -860,4 +862,45 @@ a-scene {
 }
 .slot-snapped {
     animation: slot-snap 0.2s ease;
+}
+/* نافذة كلمة المرور */
+.password-content { 
+    max-width: 450px !important; 
+    border-top: 6px solid #546E7A;
+}
+
+#teacher-password-input {
+    letter-spacing: 5px;
+    font-size: 1.5rem;
+    background: #FAFAFA;
+}
+
+#teacher-password-input::placeholder {
+    letter-spacing: normal;
+    font-size: 1.1rem;
+    color: #999;
+}
+
+.password-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.error-msg {
+    color: #EF5350;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    background: #FFEBEE;
+    padding: 8px 12px;
+    border-radius: 8px;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }

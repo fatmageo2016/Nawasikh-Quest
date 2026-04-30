@@ -8,7 +8,7 @@ const LEVEL_INTRO_DATA = {
         subtitle: '"تحدي المبتدأ والخبر"',
         motivation: 'أهلاً بك يا بطل في بداية الرحلة! قبل أن نواجه النواسخ، علينا أولاً أن نتقن بناء البيت الأصلي.. "الجملة الاسمية". هل يمكنك ضبط المبتدأ والخبر ليكون البناء متوازناً؟',
         task: 'اختر العلامة الإعرابية الصحيحة (الضمة، الألف، أو الواو) لرفع المبتدأ والخبر لتجتاز البوابة الأولى.',
-        rule: 'تذكر دائماً.. المبتدأ والخبر توأمان في "الرفع". يُرفعان بالضمة (مفرد/جمع مؤنث/جمع تكسير)، وبالألف (مثنى)، وبالواو (جمع مذكر سالم/أسماء خمسة).'
+        rule: 'تذكر دائماً.. مبتدأ وخبر توأمان في "رفع". يُرفعان بالضمة (مفرد/جمع مؤنث/جمع تكسير)، وبالألف (مثنى)، وبالواو (جمع مذكر سالم/من الأسماء الخمسة).'
     },
     2: {
         icon: '🔵',
@@ -16,7 +16,7 @@ const LEVEL_INTRO_DATA = {
         subtitle: '"تحدي الحروف الناسخة"',
         motivation: 'أهلاً بك يا بطل في أولى محطات المغامرة! هل أنت مستعد لتغيير موازين الجملة الاسمية؟ الحروف الناسخة تنتظر ذكاءك لترتب صفوفها.',
         task: 'ستظهر لك جمل اسمية "مهتزة"، عليك اختيار الكلمة الصحيحة التي تلي الحرف الناسخ لتستقر الجملة وتكسب النقاط.',
-        rule: 'تذكر دائماً.. (إنَّ وأخواتها) حروف قوية، تدخل على الجملة فـ "تنصب" المبتدأ (بالفتحة أو الياء أو الألف) و "ترفع" الخبر. كن دقيقاً في اختيار علامة النصب!'
+        rule: 'تذكر دائماً.. (إنَّ وأخواتها) حروف قوية، تدخل على جملة فـ "تنصب" مبتدأ (بالفتحة أو بالياء أو بالألف) و "ترفع" خبر. كن دقيقاً في اختيار علامة نصب!'
     },
     3: {
         icon: '🟠',
@@ -24,7 +24,7 @@ const LEVEL_INTRO_DATA = {
         subtitle: '"معركة الأفعال الناسخة"',
         motivation: 'رائع! لقد اجتزت الحروف، لكن الآن واجهت "الأفعال" التي تقلب القواعد! حصن "كان" يحتاج إلى قائد يتقن ضبط الأواخر. هل ستكون أنت هذا القائد؟',
         task: 'وازن الجملة باختيار "خبر كان" الصحيح. العلامات الإعرابية هنا هي مفتاح الفوز، فخطأ واحد قد يكلفك خسارة العملات!',
-        rule: 'انتبه.. (كان وأخواتها) أفعال مغيرة، فهي "ترفع" المبتدأ و "تنصب" الخبر. ركز جيداً على الخبر، فهو من سيحتاج منك لمسة التصحيح (بالفتحة أو الياء أو الكسرة في جمع المؤنث).'
+        rule: 'انتبه.. (كان وأخواتها) أفعال مغيرة، فهي "ترفع" مبتدأ و "تنصب" خبر. ركز جيداً على خبر، فهو من سيحتاج منك لمسة تصحيح (بالفتحة أو بالياء أو بالكسرة في جمع مؤنث).'
     },
     4: {
         icon: '🟣',
@@ -32,7 +32,7 @@ const LEVEL_INTRO_DATA = {
         subtitle: '"ساحة العمالقة - الاختبار النهائي"',
         motivation: 'أنت الآن في منطقة العمالقة! لا مجال للتردد. هنا تختلط الحروف بالأفعال، وتظهر الكلمات الممنوعة من الصرف لتختبر تركيزك العالي. أثبت لنا أنك "خبير النواسخ" الأول!',
         task: 'سريعة ودقيقة؛ هكذا يجب أن تكون إجاباتك. ميز بين "إنَّ" و "كانَ" في لمح البصر، وانتبه للكلمات التي لا تقبل التنوين (الممنوعة من الصرف).',
-        rule: 'القاعدة هي "التركيز التام". قارن بين تأثير الحرف وتأثير الفعل قبل الاختيار. المبتدأ منصوب مع إنَّ، والخبر منصوب مع كانَ. انطلق نحو الشارة الذهبية!'
+        rule: 'قاعدة هي "تركيز تام". قارن بين تأثير حرف وتأثير فعل قبل اختيار. مبتدأ منصوب مع إنَّ، وخبر منصوب مع كانَ. انطلق نحو شارة ذهبية!'
     }
 };
 
@@ -179,10 +179,10 @@ const ALL_LEVELS_DATA = {
 // التغذية الراجعة لكل قاعدة
 // ════════════════════════════════════════════════
 const RULE_FEEDBACK = {
-    1: '⭐ القاعدة الذهبية: المبتدأ والخبر توأمان في الرفع ',
-    2: '📗 القاعدة الذهبية: (إنَّ وأخواتها) حروف قوية، تنصب المبتدأ، وترفع الخبر.',
-    3: '📙 القاعدة الذهبية: (كان وأخواتها) أفعال مغيرة، ترفع المبتدأ وتنصب الخبر (بالفتحة/الياء/الكسرة).',
-    4: '🏆 ساحة العمالقة: قارن بين تأثير الحرف (إنَّ) والفعل (كانَ) قبل الاختيار. المبتدأ منصوب مع إنَّ، والخبر منصوب مع كانَ.'
+    1: '⭐ قاعدة ذهبية: مبتدأ وخبر توأمان في رفع ',
+    2: '📗 قاعدة ذهبية: (إنَّ وأخواتها) حروف قوية، تنصب مبتدأ، وترفع خبر.',
+    3: '📙 قاعدة ذهبية: (كان وأخواتها) أفعال مغيرة، ترفع مبتدأ وتنصب خبر (بالفتحة/بالياء/بالكسرة).',
+    4: '🏆 ساحة عمالقة: قارن بين تأثير حرف (إنَّ) وفعل (كانَ) قبل اختيار. مبتدأ منصوب مع إنَّ، وخبر منصوب مع كانَ.'
 };
 
 
@@ -283,7 +283,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('show-leaderboard-btn').addEventListener('click', () => showLeaderboard());
     document.getElementById('player-name-input').addEventListener('keydown', e => { if (e.key === 'Enter') onStartClick(); });
     document.getElementById('player-name-input').addEventListener('input', onNameInput);
-    document.getElementById('show-teacher-btn').addEventListener('click', showTeacherDashboard);
+    document.getElementById('show-teacher-btn').addEventListener('click', requestTeacherAccess);
+    document.getElementById('submit-password-btn').addEventListener('click', submitTeacherPassword);
+    document.getElementById('cancel-password-btn').addEventListener('click', cancelTeacherPassword);
+    document.getElementById('teacher-password-input').addEventListener('keydown', e => { if (e.key === 'Enter') submitTeacherPassword(); });
 
     // داخل اللعبة
     document.getElementById('next-btn').addEventListener('click', goToNext);
@@ -810,7 +813,7 @@ function createFeedbackTexture(lines, bgColor, textColor) {
     ctx.textBaseline = 'middle';
     const lineHeight = canvas.height / (lines.length + 1);
     lines.forEach((line, i) => {
-        ctx.font = line.bold ? '900 72px Cairo, sans-serif' : '700 52px Cairo, sans-serif';
+        ctx.font = line.bold ? '900 64px Cairo, sans-serif' : '700 44px Cairo, sans-serif';
         ctx.fillText(line.text, canvas.width / 2, lineHeight * (i + 1));
     });
 
@@ -820,7 +823,7 @@ function createFeedbackTexture(lines, bgColor, textColor) {
 // ════════════════════════════════════════════════
 // عرض لوحة تغذية راجعة داخل المشهد ثلاثي الأبعاد
 // ════════════════════════════════════════════════
-function show3DFeedback(text, isSuccess, duration) {
+function show3DFeedback(title, isSuccess, duration, extraLines = []) {
     // إزالة أي لوحة سابقة
     const oldWorld = document.getElementById('vr-feedback-panel');
     if (oldWorld && oldWorld.parentNode) oldWorld.parentNode.removeChild(oldWorld);
@@ -829,22 +832,26 @@ function show3DFeedback(text, isSuccess, duration) {
     const textColor = isSuccess ? '#26A69A' : '#EF5350';
     const emoji = isSuccess ? '✅' : '❌';
 
-    const texture = createFeedbackTexture([
-        { text: emoji + ' ' + text, bold: true }
-    ], bgColor, textColor);
+    let lines = [];
+    if (extraLines.length > 0) {
+        lines = extraLines;
+    } else {
+        lines = [{ text: emoji + ' ' + title, bold: true }];
+    }
+
+    const texture = createFeedbackTexture(lines, bgColor, textColor);
 
     const feedbackEl = document.createElement('a-entity');
     feedbackEl.setAttribute('id', 'vr-feedback-panel');
 
     // نربطها بالكاميرا مباشرة (HUD) - تظهر دائماً أعلى مجال الرؤية
-    // 0 = وسط أفقياً، 0.28 = أعلى الشاشة، -1.2 = مسافة أمام الكاميرا
-    feedbackEl.setAttribute('position', '0 0.28 -1.2');
+    feedbackEl.setAttribute('position', '0 0.52 -1.2');
 
     const img = document.createElement('a-image');
     img.setAttribute('src', texture);
-    img.setAttribute('width', '0.9');
-    img.setAttribute('height', '0.45');
-    img.setAttribute('material', 'shader: flat; transparent: true');
+    img.setAttribute('width', extraLines.length > 5 ? '1.8' : '1.5');
+    img.setAttribute('height', extraLines.length > 5 ? '1.2' : '1.0');
+    img.setAttribute('material', 'shader: flat; transparent: true; depthTest: false; side: double');
     feedbackEl.appendChild(img);
 
     // إضافة للكاميرا مباشرة (HUD)
@@ -1281,6 +1288,87 @@ function moveTouchPiece(x, y) { draggedPiece.style.left = (x - touchOffsetX) + '
 
 
 
+// ════════════════════════════════════════════════
+// نظام التغذية الراجعة النحوية المخصصة
+// ════════════════════════════════════════════════
+const GRAMMAR_RULES_DATA = {
+    singular: { name: "مفرد", nom: "مرفوع بالضمة", acc: "منصوب بالفتحة" },
+    plural_broken: { name: "جمع تكسير", nom: "مرفوع بالضمة", acc: "منصوب بالفتحة" },
+    dual: { name: "مثنى", nom: "مرفوع بالألف", acc: "منصوب بالياء" },
+    plural_masc: { name: "جمع مذكر سالم", nom: "مرفوع بالواو", acc: "منصوب بالياء" },
+    plural_fem: { name: "جمع مؤنث سالم", nom: "مرفوع بالضمة", acc: "منصوب بالكسرة نيابة عن الفتحة" },
+    five_names: { name: "من الأسماء الخمسة", nom: "مرفوع بالواو", acc: "منصوب بالألف" }
+};
+
+function detectGrammarType(word) {
+    if (!word) return 'singular';
+    if (word.match(/^(أبو|أخو|حمو|فو|ذو|أبا|أخا|حما|فا|ذا|أبي|أخي|حمي|في|ذي)/)) return 'five_names';
+    if (word.endsWith('انِ') || word.endsWith('ينِ')) return 'dual';
+    if (word.endsWith('ونَ') || word.endsWith('ينَ')) return 'plural_masc';
+    if (word.includes('اتُ') || word.includes('اتِ') || word.includes('اتٌ') || word.includes('اتٍ')) return 'plural_fem';
+    
+    // قائمة كلمات جمع التكسير الموجودة في بيانات اللعبة
+    const brokenPlurals = [
+        "العلماءُ", "العلماءَ", "الأصدقاءُ", "الأصدقاءَ", "النتائجُ", "النتائجَ", 
+        "الخلفاءُ", "الخلفاءَ", "إخوةٌ", "إخوةً", "أذكياءُ", "أذكياءَ", "أوفياءُ", "أوفياءَ"
+    ];
+    if (brokenPlurals.includes(word)) return 'plural_broken';
+
+    return 'singular';
+}
+
+function generateGrammarFeedback(isCorrect) {
+    const examples = getExamplesForCurrentLevel();
+    const ex = examples[currentExIndex];
+    if (!ex) return { title: "أحسنت!", msg: "إجابة صحيحة" };
+
+    let ismState = 'nom', khabarState = 'nom';
+    let ismPos = 'مبتدأ', khabarPos = 'خبر';
+
+    if (currentRuleLevel === 2) { 
+        ismState = 'acc'; ismPos = 'اسم إنَّ'; khabarPos = 'خبر إنَّ';
+    } else if (currentRuleLevel === 3) { 
+        khabarState = 'acc'; ismPos = 'اسم كانَ'; khabarPos = 'خبر كانَ';
+    } else if (currentRuleLevel === 4) {
+        const isInna = ["إنَّ", "أنَّ", "ليتَ", "لعلَّ", "كأنَّ", "لكنَّ"].some(s => ex.nasikh && ex.nasikh.includes(s));
+        if (isInna) { ismState = 'acc'; ismPos = 'اسم ' + ex.nasikh; khabarPos = 'خبر ' + ex.nasikh; }
+        else { khabarState = 'acc'; ismPos = 'اسم ' + ex.nasikh; khabarPos = 'خبر ' + ex.nasikh; }
+    }
+
+    const ismRule = GRAMMAR_RULES_DATA[detectGrammarType(ex.ism)];
+    const khabarRule = GRAMMAR_RULES_DATA[detectGrammarType(ex.khabar)];
+
+    if (isCorrect) {
+        const title = ["أحسنت! 🌟", "رائع! ✨", "ممتاز! 🏆", "صحيح! ✅"][Math.floor(Math.random()*4)];
+        const msg = `<div class="feedback-rule-box" style="text-align:right; font-size:0.95rem;">
+            📍 <b>${ismPos} (${ex.ism}):</b> ${ismRule[ismState]} لأنه ${ismRule.name}.<br>
+            📍 <b>${khabarPos} (${ex.khabar}):</b> ${khabarRule[khabarState]} لأنه ${khabarRule.name}.
+        </div>`;
+        const lines3D = [
+            { text: title, bold: true },
+            { text: `📍 ${ismPos} (${ex.ism}):`, bold: true },
+            { text: `${ismRule[ismState]} لأنه ${ismRule.name}.`, bold: false },
+            { text: `📍 ${khabarPos} (${ex.khabar}):`, bold: true },
+            { text: `${khabarRule[khabarState]} لأنه ${khabarRule.name}.`, bold: false }
+        ];
+        return { title, msg, lines3D };
+    } else {
+        const title = "انتبه! ⚠️";
+        const errorDesc = (ismState === 'acc') ? "حروف ناسخة تنصب اسم وترفع خبر." : (khabarState === 'acc') ? "أفعال ناسخة ترفع اسم وتنصب خبر." : "مبتدأ وخبر مرفوعان دائماً.";
+        const msg = `<div class="feedback-rule-box" style="text-align:right; font-size:0.95rem; border-right-color:#EF5350;">
+            ${errorDesc}<br>
+            تذكر: ${ismRule.name} ${ismRule[ismState]}، و${khabarRule.name} ${khabarRule[khabarState]}.
+        </div>`;
+        const lines3D = [
+            { text: title, bold: true },
+            { text: errorDesc, bold: false },
+            { text: `تذكر: ${ismRule.name} ${ismRule[ismState]}`, bold: true },
+            { text: `و${khabarRule.name} ${khabarRule[khabarState]}`, bold: true }
+        ];
+        return { title, msg, lines3D };
+    }
+}
+
 function handleSuccess(slots) {
     score += 10;
     updateHeader();
@@ -1291,6 +1379,8 @@ function handleSuccess(slots) {
         score, errors: errorCount, time: elapsedSeconds, coins: sessionCoins, level: currentLevel
     });
 
+    const feedback = generateGrammarFeedback(true);
+    
     if (gameMode === 'VR') {
         slots.forEach(s => {
             // وميض أخضر مشع على الفتحة والقطعة (s هنا هو كائن من puzzleSlots)
@@ -1298,7 +1388,7 @@ function handleSuccess(slots) {
             if (s.occupied) s.occupied.setAttribute('material', 'color', '#26A69A');
         });
         // عرض التغذية الراجعة داخل المشهد ثلاثي الأبعاد
-        show3DFeedback('ممتاز! الكلمات صحيحة', true, 2200);
+        show3DFeedback(feedback.title, true, 10000, feedback.lines3D);
     } else {
         // في النمط العادي (slots هنا مصفوفة من DOM elements)
         slots.forEach(s => {
@@ -1322,12 +1412,11 @@ function handleSuccess(slots) {
         setTimeout(() => { if (light.parentNode) light.parentNode.removeChild(light); }, 1500);
     }
 
-    const ruleText = RULE_FEEDBACK[currentRuleLevel] || '';
+
 
     // عرض لوحة HTML أيضاً للوضع العادي
-    document.getElementById('feedback-title').innerText = 'ممتاز! ✅';
-    document.getElementById('feedback-message').innerHTML = 'الكلمات صحيحة ومرتبة بضبط سليم.' +
-        (ruleText ? `<div class="feedback-rule-box">${ruleText}</div>` : '');
+    document.getElementById('feedback-title').innerText = feedback.title;
+    document.getElementById('feedback-message').innerHTML = feedback.msg;
 
     // إخفاء زر التالي وعرض مؤشر الانتقال التلقائي
     const nextBtn = document.getElementById('next-btn');
@@ -1336,13 +1425,14 @@ function handleSuccess(slots) {
     nextBtn.disabled = true;
     document.getElementById('feedback').classList.remove('hidden');
 
-    // الانتقال التلقائي بعد 2.5 ثانية
+    // الانتقال التلقائي بعد مدة كافية للقراءة
+    const transitionDelay = gameMode === 'VR' ? 10000 : 5000;
     setTimeout(() => {
         document.getElementById('feedback').classList.add('hidden');
         nextBtn.textContent = originalText;
         nextBtn.disabled = false;
         goToNext();
-    }, 2500);
+    }, transitionDelay);
 }
 
 function handleError(slots) {
@@ -1350,47 +1440,47 @@ function handleError(slots) {
     updateHeader();
     playError();
 
-    if (gameMode === 'VR') {
-        slots.forEach(s => {
-            if (s.el) s.el.setAttribute('material', 'color', '#EF5350');
-        });
+    // عرض تغذية راجعة تعليمية عند الخطأ
+    const feedback = generateGrammarFeedback(false);
+    document.getElementById('feedback-title').innerText = feedback.title;
+    document.getElementById('feedback-message').innerHTML = feedback.msg;
+    const fbPanel = document.getElementById('feedback');
+    const nextBtn = document.getElementById('next-btn');
+    
+    fbPanel.classList.remove('hidden');
+    nextBtn.classList.add('hidden'); // إخفاء زر التالي في حالة الخطأ
 
-        setTimeout(() => {
-            slots.forEach(s => {
+    if (gameMode === 'VR') {
+        show3DFeedback(feedback.title, false, 11200, feedback.lines3D);
+    }
+
+    const resetDelay = gameMode === 'VR' ? 11200 : 5600;
+    setTimeout(() => {
+        fbPanel.classList.add('hidden');
+        nextBtn.classList.remove('hidden');
+        
+        slots.forEach(s => {
+            if (gameMode === 'VR') {
                 if (s.occupied) {
                     const p = s.occupied;
                     p.dataset.locked = 'false';
                     document.getElementById('puzzle-world').object3D.attach(p.object3D);
-                    const hX = p.dataset.homeX;
-                    const hY = p.dataset.homeY;
-                    const hZ = p.dataset.homeZ;
+                    const hX = p.dataset.homeX, hY = p.dataset.homeY, hZ = p.dataset.homeZ;
                     gsap.to(p.object3D.position, { x: hX, y: hY, z: hZ, duration: 0.5 });
-                    gsap.to(p.object3D.rotation, { x: 0, y: 0, z: 0, duration: 0.5 });
                     if (p.animationInstance) p.animationInstance.resume();
                 }
                 s.occupied = null;
                 if (s.el) s.el.setAttribute('material', { color: '#1A237E', opacity: 0.5 });
-            });
-        }, 1200);
-    } else {
-        // النمط العادي
-        slots.forEach(s => {
-            s.classList.add('error-slot');
-            const piece = s.querySelector('.piece');
-            if (piece) piece.style.borderColor = '#EF5350';
-        });
-
-        setTimeout(() => {
-            slots.forEach(s => {
+            } else {
                 s.classList.remove('error-slot');
                 if (s.firstChild) {
                     const piece = s.firstChild;
                     piece.style.borderColor = '';
                     document.getElementById('pieces-container').appendChild(piece);
                 }
-            });
-        }, 1200);
-    }
+            }
+        });
+    }, resetDelay);
 }
 
 // ════════════════════════════════════════════════
@@ -1674,6 +1764,42 @@ function showLeaderboard() {
     }
     document.getElementById('leaderboard-screen').classList.remove('hidden');
     gsap.from('#leaderboard-screen .overlay-content', { scale: 0.85, opacity: 0, duration: 0.4, ease: 'back.out(1.3)' });
+}
+
+// ════════════════════════════════════════════════
+// حماية لوحة المعلم بكلمة مرور
+// ════════════════════════════════════════════════
+function requestTeacherAccess() {
+    const screen = document.getElementById('teacher-login-screen');
+    const input = document.getElementById('teacher-password-input');
+    const error = document.getElementById('password-error');
+    
+    input.value = '';
+    error.classList.add('hidden');
+    screen.classList.remove('hidden');
+    input.focus();
+    
+    gsap.from('#teacher-login-screen .overlay-content', { scale: 0.8, opacity: 0, duration: 0.4, ease: 'back.out(1.5)' });
+}
+
+function submitTeacherPassword() {
+    const input = document.getElementById('teacher-password-input');
+    const error = document.getElementById('password-error');
+    
+    if (input.value === '123') {
+        document.getElementById('teacher-login-screen').classList.add('hidden');
+        showTeacherDashboard();
+    } else {
+        error.classList.remove('hidden');
+        input.classList.add('shake');
+        setTimeout(() => input.classList.remove('shake'), 500);
+        input.value = '';
+        input.focus();
+    }
+}
+
+function cancelTeacherPassword() {
+    document.getElementById('teacher-login-screen').classList.add('hidden');
 }
 
 // ════════════════════════════════════════════════

@@ -270,6 +270,27 @@
     </div>
 
     <!-- ═══════════════════════════════════════════
+     نافذة التحقق من كلمة المرور للمعلم 🔐
+     ═══════════════════════════════════════════ -->
+    <div id="teacher-login-screen" class="overlay hidden">
+        <div class="overlay-content password-content">
+            <div class="hero-icon">🔐</div>
+            <h2>دخول المعلم</h2>
+            <p>يرجى إدخال كلمة المرور للوصول إلى لوحة التحكم</p>
+            
+            <div class="form-group">
+                <input type="password" id="teacher-password-input" placeholder="كلمة المرور" autocomplete="off">
+                <div id="password-error" class="error-msg hidden">❌ كلمة المرور غير صحيحة!</div>
+            </div>
+
+            <div class="password-btns">
+                <button id="submit-password-btn" class="btn-primary">دخول 🔓</button>
+                <button id="cancel-password-btn" class="btn-secondary">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
      لوحة تحكم المعلم 👨‍🏫
      ═══════════════════════════════════════════ -->
     <div id="teacher-dashboard-screen" class="overlay hidden">
